@@ -18,7 +18,8 @@ ELPL_Assignments
 
 ----Added function to traverse through tree recursively <traverseAnnotatedTree(Tree<String> tree)>
 
-------Traverses tree and saves Parent->child nodes ArrayList<String[]> type list as <String parent, String child, String number_of_children, String log_probability>
+------Traverses tree and saves Parent->child nodes ArrayList<String[]> type list as 
+          <String parent, String child, String number_of_children, String log_probability>
 
 ----Modified <getLogScore(Tree<String> tree)> function to add log probabilities of unary and binary rules from annotated tree
 
