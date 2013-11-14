@@ -251,82 +251,75 @@ import nlp.util.CounterMap;
     List<String[]> word_tokens = new ArrayList<String[]>();
     
 	@Override
-	public double getLogScore(Tree<String> tree) {
+	public double getLogScore(Tree<String> tree) 
+	{
 		Tree<String> annotatedTree = annotator.annotateTree(tree);
-		/*
-		 * Add method which uses the annotatedTree (not the 'tree') and compute the log probability of the tree
-		 */
+		
 		double logSum=0;
-		
-		//List<Tree<String>> temp=annotatedTree.getPostOrderTraversal();
-		
-		//System.out.println(temp);
 		
 		word_tokens.clear();
 		traverseAnnotatedTree(annotatedTree);
 			
 		for(int i=0;i<word_tokens.size();i++){
-			//System.out.println(i);
-			//System.out.println(word_tokens.get(i)[0] +
-					//"\t\t\t\t"+ word_tokens.get(i)[1]+
-					//"\t\t\t\t"+ word_tokens.get(i)[2]+
-					//"\t\t\t\t"+ word_tokens.get(i)[3]
-							//);
+			/*System.out.println(i);
+			System.out.println(word_tokens.get(i)[0] +
+					"\t\t\t\t"+ word_tokens.get(i)[1]+
+					"\t\t\t\t"+ word_tokens.get(i)[2]+
+					"\t\t\t\t"+ word_tokens.get(i)[3]
+							);*/
 			logSum+=Double.parseDouble(word_tokens.get(i)[3]);
-			
 		}
 		return logSum;
 	}
 	
 	public Tree<String> traverseAnnotatedTree(Tree<String> tree)
 	{
-		//System.out.println("parent="+tree.getLabel());
 		if(tree.isLeaf())
 		{
 			return tree;
 		}
+		
 		List<Tree<String>> childrenList=tree.getChildren();
 		
-		if(childrenList.size()==1){
+		if(childrenList.size()==1)
+		{
 			Tree<String> child=childrenList.get(0);
-			//System.out.println("lonely child="+child.getLabel());
 			String[] params0 = new String[4];
 			params0[0]=tree.getLabel();
 			params0[1]=child.getLabel();
 			params0[2]="1";
 			params0[3]=String.valueOf(grammar.getUnScore(tree.getLabel(), child.getLabel()));
-			if(child.isLeaf()){
+			
+			if(child.isLeaf())
+			{
 				params0[2]="lexicon";
-				params0[3]="0";
+				params0[3]=String.valueOf(Math.log(lexicon.scoreTagging(child.getLabel(), tree.getLabel())));
 			}
+			
 			word_tokens.add(params0);
-			//System.out.println("added:"+temp[0]+"\t"+temp[1]);
 			traverseAnnotatedTree(child);
 		}
-		else if(childrenList.size()==2){
+		else if(childrenList.size()==2)
+		{
 			Tree<String> leftChild=childrenList.get(0);
-			//System.out.println("left child="+leftChild.getLabel());
-			
 			Tree<String> rightChild=childrenList.get(1);
-			//System.out.println("right child="+rightChild.getLabel());
+			
 			String[] params1 = new String[4];
 			params1[0]=tree.getLabel();
 			params1[1]=leftChild.getLabel();
 			params1[2]="2";
 			params1[3]=String.valueOf(grammar.getBiScore(tree.getLabel(), leftChild.getLabel(), rightChild.getLabel()));
+			
 			word_tokens.add(params1);
-			//System.out.println("added:"+temp[0]+"\t"+temp[1]);
 			traverseAnnotatedTree(leftChild);
 			
 			String[] params2 = new String[4];
 			params2[0]=tree.getLabel();
 			params2[1]=rightChild.getLabel();
 			params2[2]="2";
-			params2[3]=String.valueOf(grammar.getBiScore(tree.getLabel(), leftChild.getLabel(), rightChild.getLabel()));
+			params2[3]="0";
 			
 			word_tokens.add(params2);
-			//System.out.println("added:"+temp1[0]+"\t"+temp1[1]);
-			
 			traverseAnnotatedTree(rightChild);
 		}
 		return tree;

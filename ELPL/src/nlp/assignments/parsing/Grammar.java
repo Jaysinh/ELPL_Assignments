@@ -58,7 +58,7 @@ import nlp.util.Counter;
 				unscore = rules.get(i).getScore();
 			}
 		}
-    	return Math.log10(unscore);
+    	return Math.log(unscore);
     }
     
     public double getBiScore(String parent, String lchild, String rchild){
@@ -76,7 +76,7 @@ import nlp.util.Counter;
 				}
 			}
 		}
-    	return Math.log10(biscore);
+    	return Math.log(biscore);
     }
     
     public List<UnaryRule> getUnaryRules() {
