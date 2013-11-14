@@ -16,7 +16,7 @@ ELPL_Assignments
 
 --Changes in [BaselineCkyParser.java]
 
-----Added function to traverse through tree recursively: <traverseAnnotatedTree(Tree<String> tree)>
+----Added function to traverse through tree recursively <traverseAnnotatedTree(Tree<String> tree)>
 
 ------Traverses tree and saves Parent->child nodes ArrayList<String[]> type list as <String parent, String child, String number_of_children, String log_probability>
 
