@@ -268,15 +268,9 @@ import nlp.util.CounterMap;
 					//"\t\t\t\t"+ word_tokens.get(i)[2]+
 					//"\t\t\t\t"+ word_tokens.get(i)[3]
 							//);
-			if(Double.parseDouble(word_tokens.get(i)[3])>99999999999999999999999999999999.0 || 
-					Double.parseDouble(word_tokens.get(i)[3]) < -99999999999999999999999999999999.0){
-				logSum+=0;
-			}
-			else{
-				logSum+=Double.parseDouble(word_tokens.get(i)[3]);
-			}
+			logSum+=Double.parseDouble(word_tokens.get(i)[3]);
+			
 		}
-		//return Double.NaN;
 		return logSum;
 	}
 	
