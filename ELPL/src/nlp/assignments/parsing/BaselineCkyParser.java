@@ -286,15 +286,15 @@ import nlp.util.CounterMap;
 		if(childrenList.size()==1){
 			Tree<String> child=childrenList.get(0);
 			//System.out.println("lonely child="+child.getLabel());
-			String[] temp0 = new String[4];
-			temp0[0]=tree.getLabel();
-			temp0[1]=child.getLabel();
-			temp0[2]="1";
-			temp0[3]=String.valueOf(grammar.getUnScore(tree.getLabel(), child.getLabel()));
+			String[] params0 = new String[4];
+			params0[0]=tree.getLabel();
+			params0[1]=child.getLabel();
+			params0[2]="1";
+			params0[3]=String.valueOf(grammar.getUnScore(tree.getLabel(), child.getLabel()));
 			if(child.isLeaf()){
-				temp0[3]=String.valueOf(Math.log10(lexicon.scoreTagging(child.getLabel(), tree.getLabel())));
+				params0[3]=String.valueOf(Math.log10(lexicon.scoreTagging(child.getLabel(), tree.getLabel())));
 			}
-			word_tokens.add(temp0);
+			word_tokens.add(params0);
 			//System.out.println("added:"+temp[0]+"\t"+temp[1]);
 			traverseAnnotatedTree(child);
 		}
@@ -304,21 +304,21 @@ import nlp.util.CounterMap;
 			
 			Tree<String> rightChild=childrenList.get(1);
 			//System.out.println("right child="+rightChild.getLabel());
-			String[] temp1 = new String[4];
-			temp1[0]=tree.getLabel();
-			temp1[1]=leftChild.getLabel();
-			temp1[2]="2";
-			temp1[3]=String.valueOf(grammar.getBiScore(tree.getLabel(), leftChild.getLabel(), rightChild.getLabel()));
-			word_tokens.add(temp1);
+			String[] params1 = new String[4];
+			params1[0]=tree.getLabel();
+			params1[1]=leftChild.getLabel();
+			params1[2]="2";
+			params1[3]=String.valueOf(grammar.getBiScore(tree.getLabel(), leftChild.getLabel(), rightChild.getLabel()));
+			word_tokens.add(params1);
 			//System.out.println("added:"+temp[0]+"\t"+temp[1]);
 			traverseAnnotatedTree(leftChild);
 			
-			String[] temp2 = new String[4];
-			temp2[0]=tree.getLabel();
-			temp2[1]=rightChild.getLabel();
-			temp2[2]="2";
-			temp2[3]="0";
-			word_tokens.add(temp2);
+			String[] params2 = new String[4];
+			params2[0]=tree.getLabel();
+			params2[1]=rightChild.getLabel();
+			params2[2]="2";
+			params2[3]="0";
+			word_tokens.add(params2);
 			//System.out.println("added:"+temp1[0]+"\t"+temp1[1]);
 			
 			traverseAnnotatedTree(rightChild);
