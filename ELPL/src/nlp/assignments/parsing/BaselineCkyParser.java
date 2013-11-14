@@ -258,6 +258,10 @@ import nlp.util.CounterMap;
 		 */
 		double logSum=0;
 		
+		//List<Tree<String>> temp=annotatedTree.getPostOrderTraversal();
+		
+		//System.out.println(temp);
+		
 		word_tokens.clear();
 		traverseAnnotatedTree(annotatedTree);
 			
@@ -292,7 +296,8 @@ import nlp.util.CounterMap;
 			params0[2]="1";
 			params0[3]=String.valueOf(grammar.getUnScore(tree.getLabel(), child.getLabel()));
 			if(child.isLeaf()){
-				params0[3]=String.valueOf(Math.log10(lexicon.scoreTagging(child.getLabel(), tree.getLabel())));
+				params0[2]="lexicon";
+				params0[3]="0";
 			}
 			word_tokens.add(params0);
 			//System.out.println("added:"+temp[0]+"\t"+temp[1]);
@@ -317,7 +322,8 @@ import nlp.util.CounterMap;
 			params2[0]=tree.getLabel();
 			params2[1]=rightChild.getLabel();
 			params2[2]="2";
-			params2[3]="0";
+			params2[3]=String.valueOf(grammar.getBiScore(tree.getLabel(), leftChild.getLabel(), rightChild.getLabel()));
+			
 			word_tokens.add(params2);
 			//System.out.println("added:"+temp1[0]+"\t"+temp1[1]);
 			
@@ -325,8 +331,4 @@ import nlp.util.CounterMap;
 		}
 		return tree;
 	}
-	
-
-	
-    
   }
