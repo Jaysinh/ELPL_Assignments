@@ -3,12 +3,17 @@ ELPL_Assignments
 --Extract all files
 
 
---Set Path to data files in run arguments
+--Set Path to data files and run arguments for assignment 1
 
 -----path "<path>\assignment-1-src-and-data\data" -scoring-mode
 
 
---Set main class as:
+--Set Path to data files and run arguments for assignment 2
+
+-----path "<path>\assignment-1-src-and-data\data" -lossless-binarization
+
+
+--Set main class for both assignments as:
 
 ----nlp.assignments.parsing.PCFGParserTester
 
@@ -40,4 +45,14 @@ ELPL_Assignments
 
 _______________________________________________________________________________________
 
-##Assignment 2:
+##Assignment 2: Getting the best parse tree
+
+--Changes in [BaselineCkyParser.java]
+
+----Modified the class <EdgeInfo>, so as to unary rules can be kept
+
+----Modified the method <set> of class chart to add new best score
+
+----Modified the method <setBackPointer> to support unary rules
+
+----Modified the methods <getBestParse> and traverseBackPointersHelper> to support unary rules
