@@ -126,7 +126,7 @@ class BaselineCkyParser implements Parser {
 		}
 		/*---------------------/3-------------------------------*/
 
-		BinaryRule getRule(int i, int j, String label) {
+		BinaryRule getBiRule(int i, int j, String label) {
 			return chart.get(i).get(j).get(label).rule;
 		}
 
@@ -153,10 +153,12 @@ class BaselineCkyParser implements Parser {
 					parent));
 			//create all the intermediate unary paths
 			for (String node : unPath) {
-				if (node == parent)
-					continue;
+				
 				List<Tree<String>> children = new ArrayList<Tree<String>>(1);
-				//System.out.println(node);
+				System.out.println("node:unPath:unaryRule");
+				System.out.println(node);
+				System.out.println(unPath);
+				System.out.println(unaryRule);
 				Tree<String> tree = new Tree<String>(node);
 				children.add(tree);
 				currTree.setChildren(children);
@@ -172,7 +174,7 @@ class BaselineCkyParser implements Parser {
 		if (j - i > 1 ) {
 			
 			//System.out.println("IM BINARY!!");
-			BinaryRule rule = chart.getRule(i, j, parent);
+			BinaryRule rule = chart.getBiRule(i, j, parent);
 			// assert rule != null;
 			int mid = chart.getMidPoint(i, j, parent);
 			List<Tree<String>> children = new ArrayList<Tree<String>>(2);
